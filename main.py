@@ -1,22 +1,23 @@
-# setup for program, open files
-markets = {}
-m = open('E:/GitHub/FarmersMarketFinder/Libs/markets-test.csv', 'r')
+def index_markets(location):
+    ziplist = {}
+    townlist = {}
+    m = open(location, 'r')
+    m.readline()
+    # splitting output into dictionary
+    for line in m:
+        inf = line.strip().split(',')
+        ziplist[str(inf[7])] = [inf[1], inf[2], inf[3], inf[4], inf[6]]
 
-# Next line only useful if there is a blank or irrelevant line at top of file. Mine has none.
-# m.readline()
+    for line in m:
+        inf = line.strip().split(',')
+        townlist[str(inf[4])] += str(inf[7])
 
-# splitting output into dictionary
-for line in m:
-    inf = line.strip().split(',')
-    markets[inf[7]] = inf[1], inf[2], inf[3], inf[4], inf[6]
+    return ziplist, townlist
+
+markets, towns = index_markets(input("File Name?"))
+
+# Welcome
+print("Farmers Market Finder; Find your local fresh foods!")
+print("Type quit at any time to exit the program.")
 print(markets)
-
-# search function
-try:
-    searchZip = int(input("What is your zip code?"))
-except ValueError:
-    print("Please enter a Zip Code.")
-    exit()
-#Printing search result
-print("Data will be printed in the form of (Market Name, Website, street, city, County, State) when applicable")
-print(markets[str(searchZip)])
+print(towns)
