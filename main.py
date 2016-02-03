@@ -24,9 +24,15 @@ Running = True
 while Running:
     query = input("What is the name of your zip code or town?")
     try:
+        # Check for integer status, is it a zip, or not?
         query = int(query)
-        # Search by int
 
+        # Change back to string for usability
+        query = str(query)
+
+        # Search by int
+        for i in markets[query]:
+            print(markets[query][i])
     except ValueError:
         # Search by town
-        
+        quit()
