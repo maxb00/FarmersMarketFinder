@@ -3,15 +3,14 @@ def index_markets(location):
     townlist = {}
     m = open(location, 'r')
     m.readline()
-    # splitting output into dictionary
-    for line in m:
-        inf = line.strip().split(',')
-        ziplist[str(inf[7])] = [inf[1], inf[2], inf[3], inf[4], inf[6]]
-
-    for line in m:
-        inf = line.strip().split(',')
-        townlist[str(inf[4])] += str(inf[7])
-
+    # Splitting output into dictionary
+    for entry in m:
+        info = entry.strip().split(',')
+        townlist[str(info[4])] = []
+        townlist[str(info[4])].append(str(info[7]))
+        # Could not read through file twice, had to condense.
+        ziplist[str(info[7])] = []
+        ziplist[str(info[7])].append((info[1], info[2], info[3], info[4], info[6]))
     return ziplist, townlist
 
 markets, towns = index_markets(input("File Name?"))
@@ -21,3 +20,13 @@ print("Farmers Market Finder; Find your local fresh foods!")
 print("Type quit at any time to exit the program.")
 print(markets)
 print(towns)
+Running = True
+while Running:
+    query = input("What is the name of your zip code or town?")
+    try:
+        query = int(query)
+        # Search by int
+
+    except ValueError:
+        # Search by town
+        
